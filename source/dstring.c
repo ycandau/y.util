@@ -2,9 +2,9 @@
 //
 //  @file dstring.c
 //  @author Yves Candau <ycandau@sfu.ca>
-//  
+//
 //  @brief Dynamic string functions
-//  
+//
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -129,7 +129,7 @@ t_dstr _dstr_new(const char* src, t_dstr_int len_cur, t_dstr_int len_max) {
 t_dstr _dstr_realloc(t_dstr dstr, t_dstr_int len) {
 
   if (DSTR_IS_NULL(dstr)) { return dstr; }
-  
+
   dstr->cstr = (char*)REALLOC(dstr->cstr, sizeof(char) * (len + 1));
 
   if (dstr->cstr) {
@@ -181,7 +181,7 @@ t_dstr _dstr_alloc_new_cstr(t_dstr dstr, t_dstr_int len) {
 //  @return The smallest power of two or DSTR_LEN_MAX.
 //
 t_dstr_int _dstr_next_pow2(t_dstr_int val) {
-  
+
   t_dstr_int i = val;
 
   val = val ? --val : 0;  // in case val is a power of 2, or 0
@@ -195,7 +195,7 @@ t_dstr_int _dstr_next_pow2(t_dstr_int val) {
 #if (DSTR_INT_SIZE > 32)
   val |= (val >> 32);   // 64 bit type
 #endif
-#endif 
+#endif
 #endif
   val++;  // this increment could loop back to 0
 
@@ -273,7 +273,7 @@ t_dstr dstr_new_n(t_dstr_int len) {
 //  @return The new dstring.
 //
 t_dstr dstr_new_cstr(const char* cstr) {
-  
+
   t_dstr_int len = (t_dstr_int)strnlen(cstr, DSTR_LEN_MAX);
   return _dstr_new(cstr, len, _dstr_next_pow2(len));
 }
@@ -817,7 +817,7 @@ t_dstr dstr_replace(t_dstr dstr, const char* search, const char* replace) {
   t_dstr_int replace_len = (t_dstr_int)strnlen(replace, DSTR_LEN_MAX);
   char* src_beg = dstr->cstr;
   char* src_next;
-  
+
   // Replace shorter: replace in place and shift, use memmove for overlaps
   if (replace_len < search_len) {
     t_dstr_int segment_len;
@@ -912,7 +912,7 @@ int _dstr_int_to_cstr(char* str, const __int64 val) {
 //  @return The length of the string.
 //
 int _dstr_float_to_cstr_sci(char* str, double val, int prec) {
-  
+
   // Process the sign of the value
   char* pc = str;
   if (val < 0) {
@@ -925,7 +925,7 @@ int _dstr_float_to_cstr_sci(char* str, double val, int prec) {
   double frac2 = frexp(val, &exp2);
   int exp10 = (int)floor(exp2 * M_LN2_LN10);
   double frac10 = exp(exp2 * M_LN2 - exp10 * M_LN10) * frac2;
-  
+
   // Shift by one multiple of 10 if necessary
   if ((frac10 < 1) && (frac10 != 0)) {
     frac10 *= 10;
@@ -964,7 +964,7 @@ int _dstr_float_to_cstr_sci(char* str, double val, int prec) {
     exp10 /= 10;
   } while (exp10);
   char* pc1 = pc - 1;
-  
+
   // Reverse the exponent string
   char tmp;
   while (pc0 < pc1) {
@@ -972,7 +972,7 @@ int _dstr_float_to_cstr_sci(char* str, double val, int prec) {
     *pc0++ = *pc1;
     *pc1-- = tmp;
   }
-  
+
   *pc = '\0';
 
   post("%s", str);
@@ -1012,7 +1012,7 @@ t_bool dstr_verify(t_dstr dstr,
 void dstr_test() {
 
   dstr_verify(NULL_DSTR, 0, DSTR_LEN_ERR, "", "1: NULL_DSTR");
-  
+
   t_dstr dstr = dstr_new();
   dstr_verify(dstr, 0, 8, "", "2: dstr_new");
   dstr_free(&dstr);
@@ -1062,7 +1062,7 @@ void dstr_test() {
 
   t_dstr dstr2 = dstr_new_dstr(dstr);
   dstr_verify(dstr2, 6, 8, "abcdef", "22: dstr_new_dstr");
-  
+
   dstr_free(&dstr);
   dstr_free(&dstr2);
 
@@ -1129,7 +1129,7 @@ void dstr_test() {
   dstr = dstr_new_atom(atom);
   dstr_verify(dstr, 3, 4, "abc", "39: dstr_new_atom");
   dstr_free(&dstr);
-  
+
   dstr = dstr_new();
   dstr2 = dstr_new();
 
@@ -1152,7 +1152,7 @@ void dstr_test() {
     "46: dstr_cat_printf");
   dstr_clear(dstr);
   dstr_fit(dstr);
-  
+
   dstr_cat_cstr(dstr, "0123456/");
   atom_setlong(atom, 1234);
   dstr_cat_atom(dstr, atom);

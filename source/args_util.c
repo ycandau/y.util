@@ -63,7 +63,7 @@ void args_warn(void* x, t_symbol* sym, short index, t_atom* atom,
   dstr_cat_printf(dstr, "%s arg[%i] = ", sym->s_name, index);
   dstr_cat_atom(dstr, atom);
   dstr_cat_bin(dstr, ": Should be ", 12);
-  
+
   switch (type) {
     case A_LONG: dstr_cat_bin(dstr, "an int", 6); break;
     case A_FLOAT: dstr_cat_bin(dstr, "a float", 7); break;

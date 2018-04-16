@@ -2,9 +2,9 @@
 //
 //  @file ceil.c
 //  @author Yves Candau <ycandau@sfu.ca>
-//  
+//
 //  @brief A Max external to round floats and lists up.
-//  
+//
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -80,7 +80,7 @@ void  ceil_list(t_ceil* x, t_symbol* sym, long argc, t_atom* argv);
 void  ceil_anything(t_ceil* x, t_symbol* sym, long argc, t_atom* argv);
 
 // Attribute setters
-t_max_err a_set_maxlen(t_ceil *x, t_object *attr, long argc, t_atom *argv);
+t_max_err a_set_maxlen(t_ceil* x, t_object* attr, long argc, t_atom* argv);
 
 // Process lists and messages
 void process_message_256(t_ceil* x, t_symbol* sym, short argc, t_atom* argv,
@@ -165,10 +165,10 @@ void C74_EXPORT ext_main(void* r) {
 //******************************************************************************
 //  Attribute setter for maxlen.
 //
-t_max_err a_set_maxlen(t_ceil *x, t_object *attr, long argc, t_atom *argv) {
+t_max_err a_set_maxlen(t_ceil* x, t_object* attr, long argc, t_atom* argv) {
 
   // Input could be a symbol or an integer
-  t_symbol *symbol = NULL;
+  t_symbol* symbol = NULL;
   t_atom_long number = 0;
 
   switch (atom_gettype(argv)) {

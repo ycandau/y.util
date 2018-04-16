@@ -2,9 +2,9 @@
 //
 //  @file mix~.c
 //  @author Yves Candau <ycandau@sfu.ca>
-//  
+//
 //  @brief A Max external to mix channels.
-//  
+//
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -165,7 +165,7 @@ void* mix_new(t_symbol* sym, long argc, t_atom* argv) {
     (argc >= 2) && args_is_long(x, sym, argv + 1, 0, is_between_l, 1, 2)
     ? (t_uint8)atom_getlong(argv + 1)
     : 1;
- 
+
   // Inlets and outlets
   dsp_setup((t_pxobject*)x, x->chan_in_cnt * x->chan_out_cnt);
   x->outlet_mess = outlet_new((t_object*)x, NULL);
@@ -475,7 +475,7 @@ t_max_err mix_set_ramp(t_mix* x, t_object* attr, long argc, t_atom* argv) {
     x->a_ramp = (float)atom_getfloat(argv);
   }
   else {
-    x->a_ramp = (float)RAMP_DEF; 
+    x->a_ramp = (float)RAMP_DEF;
   }
   x->ramp_samp = (t_uint32)(x->a_ramp * sys_getsr() / 1000);
   return MAX_ERR_NONE;

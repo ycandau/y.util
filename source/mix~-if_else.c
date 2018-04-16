@@ -2,9 +2,9 @@
 //
 //  @file mixer~.c
 //  @author Yves Candau <ycandau@sfu.ca>
-//  
+//
 //  @brief A Max external to mix channels.
-//  
+//
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -166,12 +166,12 @@ void* mix_new(t_symbol* sym, long argc, t_atom* argv) {
     (argc >= 2) && args_is_long(x, sym, argv + 1, 0, is_between_l, 1, 2)
     ? (t_uint8)atom_getlong(argv + 1)
     : 1;
- 
+
   // Inlets and outlets
-  dsp_setup((t_pxobject *)x, x->chan_in_cnt * x->chan_out_cnt);
+  dsp_setup((t_pxobject*)x, x->chan_in_cnt * x->chan_out_cnt);
   x->outlet_mess = outlet_new((t_object*)x, NULL);
   for (int i = 0; i < x->chan_out_cnt; i++) {
-    outlet_new((t_object *)x, "signal");
+    outlet_new((t_object*)x, "signal");
   }
   x->obj.z_misc |= Z_NO_INPLACE;
 
@@ -206,7 +206,7 @@ void* mix_new(t_symbol* sym, long argc, t_atom* argv) {
 //
 void mix_free(t_mix* x) {
 
-  dsp_free((t_pxobject *)x);
+  dsp_free((t_pxobject*)x);
   if (x->gains) { sysmem_freeptr(x->gains); }
   if (x->gains_targ) { sysmem_freeptr(x->gains_targ); }
   if (x->gains_adjust) { sysmem_freeptr(x->gains_adjust); }
@@ -234,12 +234,12 @@ void mix_perform64_mono(
   t_uint32 chunk_len = 0;
   t_uint32 samp_left = sampleframes;
   t_uint32 samp_proc = 0;
-  
+
   t_double gain0;
   t_double dgain;
 
-  t_double *in1 = NULL;
-  t_double *out1 = outs[0];
+  t_double* in1 = NULL;
+  t_double* out1 = outs[0];
 
   // Initialize output to 0.0
   for (int s = 0; s < sampleframes; s++) {
@@ -249,11 +249,11 @@ void mix_perform64_mono(
 
   // Loop over chunks
   while (samp_left) {
-    
+
     // ==== No ramping
     if (x->cntd == CNTD_END) {
       chunk_len = samp_left;
-      
+
       // == Loop over the input channels
       for (int i = 0; i < x->chan_in_cnt; i++) {
         gain0 = x->master * x->gains_adjust[i] * x->gains[i];
@@ -343,10 +343,10 @@ void mix_perform64(t_mix* x, t_object* dsp64, t_double** ins, long numins,
   t_double gain0;
   t_double dgain;
 
-  t_double *in1 = NULL;
-  t_double *in2 = NULL;
-  t_double *out1 = outs[0];
-  t_double *out2 = outs[1];
+  t_double* in1 = NULL;
+  t_double* in2 = NULL;
+  t_double* out1 = outs[0];
+  t_double* out2 = outs[1];
 
   // Initialize output to 0.0
   for (int s = 0; s < sampleframes; s++) {
@@ -453,7 +453,7 @@ void mix_perform64(t_mix* x, t_object* dsp64, t_double** ins, long numins,
     case 1: mix_perform64_mono(x, ins, outs, sampleframes); break;
     case 2: mix_perform64_stereo(x, ins, outs, sampleframes); break;
   }
-}*/
+} */
 
 //******************************************************************************
 //  Assist function.
@@ -490,7 +490,7 @@ t_max_err mix_set_ramp(t_mix* x, t_object* attr, long argc, t_atom* argv) {
     x->a_ramp = (float)atom_getfloat(argv);
   }
   else {
-    x->a_ramp = (float)RAMP_DEF; 
+    x->a_ramp = (float)RAMP_DEF;
   }
   x->ramp_samp = (t_uint32)(x->a_ramp * sys_getsr() / 1000);
   return MAX_ERR_NONE;

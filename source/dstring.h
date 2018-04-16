@@ -72,13 +72,13 @@ extern t_dstr_struct _null_dstr_struct;
 //    cstr to NULL_CSTR, len_cur to 0, len_max to DSTR_LEN_ERR.
 //  Overflow errors clip the C string member at DSTR_LEN_MAX.
 //  A dstring with len_cur == DSTR_LEN_MAX is assumed to be clipped.
-//  
+//
 //  NULL_DSTR is a static variable, with NULL_DSTR->cstr = "<NULL>"
 //  to ensure standard string functions do not crash
 //
 struct _dstring_struct {
 
-	char *cstr;
+  char* cstr;
   t_dstr_int len_cur;
   t_dstr_int len_max;
 };
@@ -110,7 +110,7 @@ t_dstr dstr_new_n(t_dstr_int len);
 //
 //  @return The new dstring.
 //
-t_dstr dstr_new_cstr(const char *cstr);
+t_dstr dstr_new_cstr(const char* cstr);
 
 //******************************************************************************
 //  Create a dstring from a dstring.
@@ -129,7 +129,7 @@ t_dstr dstr_new_dstr(const t_dstr dstr);
 //
 //  @return The new dstring.
 //
-t_dstr dstr_new_bin(const char *bin, t_dstr_int len);
+t_dstr dstr_new_bin(const char* bin, t_dstr_int len);
 
 //******************************************************************************
 //  Create a dstring from an int value.
@@ -168,7 +168,7 @@ t_dstr dstr_new_float_sci(double val, t_uint8 prec);
 //
 //  @return The new dstring.
 //
-t_dstr dstr_new_printf(const char *format, ...);
+t_dstr dstr_new_printf(const char* format, ...);
 
 //******************************************************************************
 //  Create a dstring from an atom.
@@ -195,7 +195,7 @@ t_dstr dstr_new_atom_type(const t_atom* atom);
 //
 //  @param dstr A pointer to the dstring to free (ANY).
 //
-void   dstr_free(t_dstr *dstr);
+void   dstr_free(t_dstr* dstr);
 
 //******************************************************************************
 //  Concatenate a C string into a dstring.
@@ -205,7 +205,7 @@ void   dstr_free(t_dstr *dstr);
 //
 //  @return The dstring.
 //
-t_dstr dstr_cat_cstr(t_dstr dest, const char *cstr);
+t_dstr dstr_cat_cstr(t_dstr dest, const char* cstr);
 
 //******************************************************************************
 //  Concatenate a dstring into a dstring.
@@ -225,7 +225,7 @@ t_dstr dstr_cat_dstr(t_dstr dest, const t_dstr dstr);
 //
 //  @return The dstring.
 //
-t_dstr dstr_cat_bin(t_dstr dest, const char *src, t_dstr_int len);
+t_dstr dstr_cat_bin(t_dstr dest, const char* src, t_dstr_int len);
 
 //******************************************************************************
 //  Concatenate a string from an int value into a dstring.
@@ -268,7 +268,7 @@ t_dstr dstr_cat_float_sci(t_dstr dest, double val, t_uint8 prec);
 //
 //  @return The dstring.
 //
-t_dstr dstr_cat_printf(t_dstr dest, const char *format, ...);
+t_dstr dstr_cat_printf(t_dstr dest, const char* format, ...);
 
 //******************************************************************************
 //  Concatenate a string from an atom into a dstring.
@@ -406,7 +406,7 @@ t_dstr dstr_cat_join_symbols(
 //
 //  @return The dstring.
 //
-t_dstr dstr_replace(t_dstr dstr, const char *search, const char *replace);
+t_dstr dstr_replace(t_dstr dstr, const char* search, const char* replace);
 
 //******************************************************************************
 //  Verify the values of a dstring.
